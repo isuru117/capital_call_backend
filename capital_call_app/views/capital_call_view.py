@@ -40,8 +40,10 @@ class CapitalCallView(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets
     def get_capital_call_by_investor(self, request, investor_id=None):
         capital_calls = CapitalCallService.get_capital_calls_by_investor(
             investor_id=investor_id)
+        
+        # No capital calls generated yet for investor
         if not capital_calls.exists():
-            return Response({"detail": "No bills found for the given investor."}, status=status.HTTP_404_NOT_FOUND)
+            return Response([], status=status.HTTP_200_OK)
 
         serializer = self.get_serializer(capital_calls, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
