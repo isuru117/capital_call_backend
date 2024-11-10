@@ -3,8 +3,9 @@ from capital_call_app.enums.status_choices import StatusChoices
 from capital_call_app.models.capital_call import CapitalCall
 
 
-class CapitalCallStatusSerializer(serializers.Serializer):
+class CapitalCallEditSerializer(serializers.Serializer):
     status = serializers.ChoiceField(choices=StatusChoices.choices)
+    due_date = serializers.DateField()
 
     def validate(self, data):
         capital_call_id = self.context.get("capital_call_id")
