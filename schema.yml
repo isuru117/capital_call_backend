@@ -1,0 +1,533 @@
+openapi: 3.0.3
+info:
+  title: Capital Call API
+  version: 1.0.0
+  description: REST API for Capital Calls management application
+paths:
+  /api/schema/:
+    get:
+      operationId: api_schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /bills/:
+    get:
+      operationId: bills_list
+      tags:
+      - bills
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bill'
+          description: ''
+    post:
+      operationId: bills_create
+      tags:
+      - bills
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Bill'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Bill'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Bill'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill'
+          description: ''
+  /bills/{id}/:
+    get:
+      operationId: bills_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this bill.
+        required: true
+      tags:
+      - bills
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Bill'
+          description: ''
+  /capital_calls/:
+    get:
+      operationId: capital_calls_list
+      tags:
+      - capital_calls
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CapitalCall'
+          description: ''
+    post:
+      operationId: capital_calls_create
+      tags:
+      - capital_calls
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CapitalCall'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CapitalCall'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CapitalCall'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapitalCall'
+          description: ''
+  /capital_calls/{id}/:
+    get:
+      operationId: capital_calls_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this capital call.
+        required: true
+      tags:
+      - capital_calls
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CapitalCall'
+          description: ''
+  /capital_calls/{id}/create_capital_call/:
+    post:
+      operationId: capital_calls_create_capital_call_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this capital call.
+        required: true
+      tags:
+      - capital_calls
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Investor'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Investor'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Investor'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Investor'
+          description: ''
+  /investors/:
+    get:
+      operationId: investors_list
+      tags:
+      - investors
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Investor'
+          description: ''
+    post:
+      operationId: investors_create
+      tags:
+      - investors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Investor'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Investor'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Investor'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Investor'
+          description: ''
+  /investors/{id}/:
+    get:
+      operationId: investors_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this investor.
+        required: true
+      tags:
+      - investors
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Investor'
+          description: ''
+  /investors/{id}/generate_bills/:
+    post:
+      operationId: investors_generate_bills_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this investor.
+        required: true
+      tags:
+      - investors
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Investor'
+          description: ''
+components:
+  schemas:
+    Bill:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        bill_type:
+          $ref: '#/components/schemas/BillTypeEnum'
+        generated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        investor:
+          type: integer
+        capital_call:
+          type: integer
+      required:
+      - amount
+      - bill_type
+      - capital_call
+      - generated_at
+      - id
+      - investor
+    BillTypeEnum:
+      enum:
+      - membership
+      - upfront_fee
+      - yearly_fee
+      type: string
+      description: |-
+        * `membership` - Membership
+        * `upfront_fee` - Upfront Fee
+        * `yearly_fee` - Yearly Fee
+    CapitalCall:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        bills:
+          type: array
+          items:
+            $ref: '#/components/schemas/Bill'
+          readOnly: true
+        total_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,13}(?:\.\d{0,2})?$
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        due_date:
+          type: string
+          format: date
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        investor:
+          type: integer
+      required:
+      - bills
+      - created_at
+      - due_date
+      - id
+      - investor
+      - status
+      - total_amount
+    Investor:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        iban:
+          type: string
+          maxLength: 34
+        total_investment:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,13}(?:\.\d{0,2})?$
+      required:
+      - email
+      - iban
+      - id
+      - name
+      - total_investment
+    StatusEnum:
+      enum:
+      - validated
+      - sent
+      - paid
+      - overdue
+      type: string
+      description: |-
+        * `validated` - Validated
+        * `sent` - Sent
+        * `paid` - Paid
+        * `overdue` - Overdue
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
