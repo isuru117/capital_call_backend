@@ -14,8 +14,10 @@ class BillView(mixins.ListModelMixin, mixins.RetrieveModelMixin, mixins.CreateMo
     @action(detail=False, methods=["get"], url_path="by-investor/(?P<investor_id>[^/.]+)")
     def get_bills_by_investor(self, request, investor_id=None):
         bills = BillService.get_bills_by_investor(investor_id=investor_id)
+        
+        # No bills generated for the investor yet
         if not bills.exists():
-            return Response({"detail": "No bills found for the given investor."}, status=status.HTTP_404_NOT_FOUND)
+            return Response([], status=status.HTTP_200_OK)
 
         serializer = self.get_serializer(bills, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

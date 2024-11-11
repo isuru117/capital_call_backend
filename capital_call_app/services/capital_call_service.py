@@ -36,9 +36,10 @@ class CapitalCallService:
         return capital_calls
     
     @staticmethod
-    def update_capital_call_status(capital_call_id, status):
+    def update_capital_call(capital_call_id, status, due_date):
         capital_call = CapitalCall.objects.get(id=capital_call_id)
         capital_call.status = status
+        capital_call.due_date = due_date
         capital_call.save()
         
         return capital_call
