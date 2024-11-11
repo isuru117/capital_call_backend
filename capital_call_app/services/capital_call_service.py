@@ -9,7 +9,7 @@ class CapitalCallService:
     def generate_capital_call(bill_ids, investor):
         # Retrieve bills from the database
         bills = Bill.objects.filter(id__in=bill_ids)
-        if bills.count() != len(bill_ids):
+        if len(bills) != len(bill_ids):
             raise ValueError("One or more bills not found with the provided IDs.")
 
         # Calculate total amount
